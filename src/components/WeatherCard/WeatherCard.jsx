@@ -1,4 +1,4 @@
-import cloudy from "../assets/cloudy.svg";
+import cloudy from "../../assets/cloudy.svg";
 import "./WeatherCard.css";
 
 function WeatherCard() {
