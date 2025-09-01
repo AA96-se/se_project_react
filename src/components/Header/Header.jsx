@@ -2,7 +2,7 @@ import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/avatar.svg";
 import "./header.css";
 
-function Header() {
+function Header({ handleOpenAddGarmentModal }) {
   const now = new Date();
   const dateStr = now.toLocaleDateString("default", {
     month: "long",
@@ -18,7 +18,12 @@ function Header() {
         </time>
         , New York
       </p>
-      <button className="header__add-clothes-btn">+ Add clothes</button>
+      <button
+        onClick={handleOpenAddGarmentModal}
+        className="header__add-clothes-btn"
+      >
+        + Add clothes
+      </button>
       <p className="header__username">Terence Tegegne</p>
       <img src={avatar} alt="user avatar" className="header__avatar" />
     </header>

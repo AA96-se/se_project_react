@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  justify-content: space-between; /* left ↔ right */
+  align-items: center;
+  padding: 16px 24px 0px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 500;
+
+  /* optional polish */
+  gap: 16px;
+  width: 100%;
+  border-top: 1px solid #e5e7eb;
+  background: #fff; /* remove if your page bg shows through */
+}
+
+.footer__credit,
+.footer__year {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}

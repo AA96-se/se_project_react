@@ -3,12 +3,22 @@
   height: 328px;
   border-radius: 20px;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card__title {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 15px;
+  margin: 0;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 16px;
+  opacity: 60%;
+  background-color: #fff;
+  padding: 2px 12px 2px 12px;
+  border-radius: 4px;
 }
 
 .card__image {
