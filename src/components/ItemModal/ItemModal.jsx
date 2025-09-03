@@ -27,8 +27,8 @@ function ItemModal({ card = {}, isOpen, onClose }) {
         ></button>
         <img src={link} alt={name} className="modal__image" />
         <div className="modal__footer">
-          <h2 className="modal__text">{name}</h2>
-          <p className="modal__text">{weather}</p>
+          <p className="modal__text modal__text_type_title">{name}</p>
+          <p className="modal__text modal__text_type_caption">{weather}</p>
         </div>
       </div>
     </div>

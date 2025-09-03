@@ -43,14 +43,30 @@
   border: none;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 }
 
 .modal__footer {
   background-color: #fff;
+  padding: 32px;
 }
 
 .modal__text {
   margin: 0;
+  margin-left: 32px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.modal__text_type_title {
+  padding-bottom: 12px;
+  padding-top: 20px;
+}
+
+.modal__text_type_caption {
+  padding-bottom: 32px;
 }
 
 /* Form Styles */
@@ -91,6 +107,7 @@
   border: none;
   border-radius: 4px;
   background-color: #0000004d;
+  cursor: pointer;
 }
 
 .modal__label {
