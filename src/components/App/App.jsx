@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -8,6 +8,7 @@ import "../../vendor/fonts/fonts.css";
 
 import { defaultClothingItems } from "../../utils/defaultClothingItems";
 import "./App.css";
+import { getWeatherData } from "../weatherAPI/weatherApi";
 
 function App() {
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
@@ -28,6 +29,14 @@ function App() {
     setActiveModal("");
     setSelectedCard({});
   }
+
+  useEffect(() => {
+    getWeatherData()
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <div className="app">
