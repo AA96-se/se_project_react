@@ -1,12 +1,17 @@
 .header {
   display: flex;
+  justify-content: space-between;
   font-family: "Cabinet Grotesk";
   font-weight: 700;
   font-size: 20px;
 }
 
+.header__side {
+  display: flex;
+  align-items: center;
+}
+
 .header__add-clothes-btn {
-  margin-left: auto;
   font-family: "Cabinet Grotesk";
   font-weight: 700;
   font-size: 20px;
@@ -15,6 +20,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
+  margin: 0 20px;
 }
 
 .header__avatar {

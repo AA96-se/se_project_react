@@ -48,7 +48,7 @@
 
 .modal__footer {
   background-color: #fff;
-  padding: 32px;
+  padding: 0 0 32px 32px;
 }
 
 .modal__text {
@@ -63,10 +63,11 @@
 .modal__text_type_title {
   padding-bottom: 12px;
   padding-top: 20px;
+  margin: 0;
 }
 
 .modal__text_type_caption {
-  padding-bottom: 32px;
+  margin: 0;
 }
 
 /* Form Styles */

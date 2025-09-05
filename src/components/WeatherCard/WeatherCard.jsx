@@ -1,11 +1,21 @@
+import { useContext } from "react";
+
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+
 import cloudy from "../../assets/cloudy.svg";
 import "./WeatherCard.css";
 
-function WeatherCard() {
+function WeatherCard({ weatherData }) {
+  // TODO - destructure the currentTempUnit
+  const contextValue = useContext(CurrentTemperatureUnitContext);
+
   return (
     <section className="weather-card">
       <img src={cloudy} alt="Cloudy weather" className="weather-card__image" />
-      <p className="weather-card__temp">75 &deg;F</p>
+      <p className="weather-card__temp">
+        {weatherData.temp[contextValue.currentTempUnit]}&deg;
+        {contextValue.currentTempUnit}
+      </p>
     </section>
   );
 }

@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "../../vendor/fonts/fonts.css";
-
 import { defaultClothingItems } from "../../utils/defaultClothingItems";
 import "./App.css";
 import { getWeatherData } from "../weatherAPI/weatherApi";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function App() {
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [weatherData, setWeatherData] = useState({ name: "", temp: "0" });
+  const [currentTempUnit, setCurrentTempUnit] = useState("F");
 
   function handleOpenItemModal(card) {
     setActiveModal("item-modal");
@@ -24,7 +26,15 @@ function App() {
     setActiveModal("add-garment-modal");
   }
 
-  // NEW: universal close handler
+  function handleTempUnitChange() {
+    if (currentTempUnit == "F") {
+      setCurrentTempUnit("C");
+    } else {
+      setCurrentTempUnit("F");
+    }
+  }
+
+  // universal close handler
   function handleCloseModal() {
     setActiveModal("");
     setSelectedCard({});
@@ -33,20 +43,32 @@ function App() {
   useEffect(() => {
     getWeatherData()
       .then((data) => {
-        console.log(data);
+        setWeatherData(data);
       })
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    setClothingItems(defaultClothingItems);
+  }, []);
+
   return (
     <div className="app">
-      <Header handleOpenAddGarmentModal={handleOpenAddGarmentModal} />
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTempUnit, handleTempUnitChange }}
+      >
+        <Header
+          weatherData={weatherData}
+          handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+        />
 
-      {/* PASS the opener down so ItemCard can use it */}
-      <Main
-        clothingItems={clothingItems}
-        handleOpenItemModal={handleOpenItemModal}
-      />
+        {/* PASS the opener down so ItemCard can use it */}
+        <Main
+          weatherData={weatherData}
+          clothingItems={clothingItems}
+          handleOpenItemModal={handleOpenItemModal}
+        />
+      </CurrentTemperatureUnitContext.Provider>
 
       <Footer />
 
@@ -64,7 +86,6 @@ function App() {
         onClose={handleCloseModal}
         handleSubmit={(e) => {
           e.preventDefault();
-          // TODO: read values and submit
           handleCloseModal();
         }}
       >
@@ -86,7 +107,7 @@ function App() {
               type="url"
               name="link"
               className="modal__input"
-              required // ADD
+              required
               placeholder="Image URL"
               inputMode="url"
             />
