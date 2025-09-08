@@ -1,6 +1,6 @@
 import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/avatar.svg";
-import "./header.css";
+import "./Header.css";
 
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 

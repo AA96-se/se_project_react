@@ -1,4 +1,4 @@
-import { apiKey, coordinates } from "../../utils/constants";
+import { apiKey, coordinates } from "./constants";
 
 export function getWeatherData() {
   return fetch(

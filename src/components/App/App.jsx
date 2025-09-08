@@ -7,7 +7,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "../../vendor/fonts/fonts.css";
 import { defaultClothingItems } from "../../utils/defaultClothingItems";
 import "./App.css";
-import { getWeatherData } from "../weatherAPI/weatherApi";
+import { getWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function App() {
