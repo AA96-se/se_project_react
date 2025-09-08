@@ -1,15 +1,15 @@
 const coordinates = { lat: "25.675899", lon: "-80.320398" };
 const apiKey = "0a62207de71ee4625784a85d6cd01371";
 
-export const weatherConditionImages = {
+const weatherConditionImages = {
   day: {
     clear: {
       name: "clear",
       image: new URL("../assets/day/clearDay.svg", import.meta.url).href,
     },
-    cloudy: {
+    clouds: {
       name: "cloudy",
-      image: new URL("../assets/night/cloudyDay.svg", import.meta.url).href,
+      image: new URL("../assets/day/cloudyDay.svg", import.meta.url).href,
     },
     fog: {
       name: "fog",
@@ -27,6 +27,10 @@ export const weatherConditionImages = {
       name: "storm",
       image: new URL("../assets/day/stormDay.svg", import.meta.url).href,
     },
+    default: {
+      name: "default",
+      image: new URL("../assets/day/default.svg", import.meta.url).href,
+    },
   },
   night: {
     clear: {
@@ -35,7 +39,7 @@ export const weatherConditionImages = {
     },
     cloudy: {
       name: "cloudy",
-      image: new URL("../assets/night/cloudyDay.svg", import.meta.url).href,
+      image: new URL("../assets/night/cloudyNight.svg", import.meta.url).href,
     },
     fog: {
       name: "fog",
@@ -53,7 +57,11 @@ export const weatherConditionImages = {
       name: "storm",
       image: new URL("../assets/night/stormNight.svg", import.meta.url).href,
     },
+    default: {
+      name: "default",
+      image: new URL("../assets/night/default.svg", import.meta.url).href,
+    },
   },
 };
 
-export { coordinates, apiKey };
+export { coordinates, apiKey, weatherConditionImages };

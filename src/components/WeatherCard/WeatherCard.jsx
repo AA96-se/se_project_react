@@ -2,19 +2,28 @@ import { useContext } from "react";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-import cloudy from "../../assets/cloudy.svg";
+import { weatherConditionImages } from "../../utils/constants.js";
 import "./WeatherCard.css";
 
 function WeatherCard({ weatherData }) {
-  // TODO - destructure the currentTempUnit
-  const contextValue = useContext(CurrentTemperatureUnitContext);
+  // const contextValue = useContext(CurrentTemperatureUnitContext);
+  const { currentTempUnit } = useContext(CurrentTemperatureUnitContext);
+  // TODO - set up the alt text
+  //TODO - vary image based on day/night
 
   return (
     <section className="weather-card">
-      <img src={cloudy} alt="Cloudy weather" className="weather-card__image" />
+      <img
+        src={
+          weatherConditionImages["day"][weatherData.weatherCondition]?.image ||
+          weatherConditionImages["day"]["default"].image
+        }
+        alt="Cloudy weather"
+        className="weather-card__image"
+      />
       <p className="weather-card__temp">
-        {weatherData.temp[contextValue.currentTempUnit]}&deg;
-        {contextValue.currentTempUnit}
+        {weatherData.temp[currentTempUnit]}&deg;
+        {currentTempUnit}
       </p>
     </section>
   );

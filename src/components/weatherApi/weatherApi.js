@@ -1,4 +1,4 @@
-import { apiKey, coordinates } from "../constants/constants";
+import { apiKey, coordinates } from "../../utils/constants";
 
 export function getWeatherData() {
   return fetch(
@@ -21,5 +21,14 @@ function parseWeatherData(data) {
   parsedData.temp.F = Math.floor(data.main.temp);
   parsedData.temp.C = Math.round(((data.main.temp - 32) * 5) / 9);
 
+  parsedData.weatherCondition = data.weather[0].main.toLowerCase();
+
+  parsedData.isDay = isDay(data.sys, Date.now());
+
   return parsedData;
+}
+
+function isDay({ sunrise, sunset }, timestamp) {
+  const timestampInSeconds = 1000 * timestamp;
+  return sunrise < timestampInSeconds && timestampInSeconds < sunset;
 }
