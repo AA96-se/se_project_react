@@ -26,10 +26,11 @@
   border-radius: 50%;
   background-color: #000;
   z-index: -1;
+  transition: left 0.3s linear;
 }
+
 .toggle-switch__checkbox:checked + .toggle-switch__circle {
-  right: -1px;
-  left: unset;
+  left: 27px;
 }
 
 .toggle-switch__value {
