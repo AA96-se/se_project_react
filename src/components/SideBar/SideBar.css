@@ -1,0 +1,25 @@
+/* TODO - add fonts and finish styling sidebar elements */
+
+.sidebar {
+  min-width: 229px;
+}
+
+.sidebar__row {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
+  margin-top: 27px;
+  justify-content: left; /* might be a problem as we add to sidebar */
+}
+
+.sidebar__username {
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+}
+
+.sidebar__avatar {
+  height: 56px;
+  width: 56px;
+}

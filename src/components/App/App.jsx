@@ -1,13 +1,18 @@
 import { useEffect, useState, useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import Profile from "../Profile/Profile";
+
 import "../../vendor/fonts/fonts.css";
 import { defaultClothingItems } from "../../utils/defaultClothingItems";
 import "./App.css";
 import { getWeatherData } from "../../utils/weatherApi";
+
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function App() {
@@ -61,13 +66,23 @@ function App() {
           weatherData={weatherData}
           handleOpenAddGarmentModal={handleOpenAddGarmentModal}
         />
-
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                weatherData={weatherData}
+                clothingItems={clothingItems}
+                handleOpenItemModal={handleOpenItemModal}
+              />
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={<Profile clothingItems={clothingItems} />}
+          ></Route>
+        </Routes>
         {/* PASS the opener down so ItemCard can use it */}
-        <Main
-          weatherData={weatherData}
-          clothingItems={clothingItems}
-          handleOpenItemModal={handleOpenItemModal}
-        />
       </CurrentTemperatureUnitContext.Provider>
 
       <Footer />

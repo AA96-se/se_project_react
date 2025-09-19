@@ -27,6 +27,12 @@
   padding-left: 12px;
 }
 
+.header__link {
+  display: flex;
+  text-decoration: none;
+  color: black;
+}
+
 .header__username {
   padding-left: 20px;
 }
