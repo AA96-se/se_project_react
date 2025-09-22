@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "./ItemModal.css";
 
 function ItemModal({ card = {}, isOpen, onClose }) {
-  const { link = "", name = "", weather = "" } = card;
+  const { imageUrl = "", name = "", weather = "" } = card;
 
   useEffect(() => {
     const onEsc = (e) => e.key === "Escape" && onClose?.();
@@ -25,7 +25,7 @@ function ItemModal({ card = {}, isOpen, onClose }) {
           aria-label="Close"
           onClick={onClose}
         ></button>
-        <img src={link} alt={name} className="modal__image" />
+        <img src={imageUrl} alt={name} className="modal__image" />
         <div className="modal__footer">
           <p className="modal__text modal__text_type_title">{name}</p>
           <p className="modal__text modal__text_type_caption">

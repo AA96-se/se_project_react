@@ -9,11 +9,11 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
 
 import "../../vendor/fonts/fonts.css";
-import { defaultClothingItems } from "../../utils/defaultClothingItems";
 import "./App.css";
 import { getWeatherData } from "../../utils/weatherApi";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import { getItems } from "../../../api";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
@@ -39,6 +39,11 @@ function App() {
     }
   }
 
+  function handleAddItemSubmit(inputValues) {
+    console.log(inputValues);
+    setClothingItems([inputValues, ...clothingItems]);
+  }
+
   // universal close handler
   function handleCloseModal() {
     setActiveModal("");
@@ -54,7 +59,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setClothingItems(defaultClothingItems);
+    getItems()
+      .then((items) => {
+        setClothingItems(items);
+      })
+      .catch(console.error);
   }, []);
 
   return (
@@ -102,6 +111,7 @@ function App() {
       <AddItemModal
         isOpen={activeModal === "add-garment-modal"}
         onClose={handleCloseModal}
+        handleAddItemSubmit={handleAddItemSubmit}
       />
     </div>
   );

@@ -1,8 +1,19 @@
 import { useForm } from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function AddItemModal({ isOpen, onClose }) {
-  const { values, handleChange } = useForm({ name: "", weather: "hot" });
+function AddItemModal({ isOpen, onClose, handleAddItemSubmit }) {
+  const { values, handleChange } = useForm({
+    name: "",
+    weather: "hot",
+    link: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleAddItemSubmit(values);
+  };
+
+  // TODO - implement reset and delete
 
   return (
     <ModalWithForm
@@ -11,10 +22,7 @@ function AddItemModal({ isOpen, onClose }) {
       buttonText="Add garment"
       name="add-garment-form"
       onClose={onClose}
-      handleSubmit={(e) => {
-        e.preventDefault();
-        handleCloseModal();
-      }}
+      handleSubmit={handleSubmit}
     >
       <fieldset className="modal__fieldset">
         <label htmlFor="add-garment-name-input" className="modal__label">
@@ -24,21 +32,20 @@ function AddItemModal({ isOpen, onClose }) {
             type="text"
             className="modal__input"
             name="name"
+            placeholder="Name"
             value={values.name}
             onChange={handleChange}
           />
         </label>
-        {/* ADD: other input (dont forget type) */}
-        <label htmlFor="add-garment-image-input" className="modal__label">
+        <label htmlFor="add-garment-link-input" className="modal__label">
           Image
           <input
-            id="add-garment-image-input"
+            id="add-garment-link-input"
             type="url"
-            name="link"
             className="modal__input"
-            required
+            name="link"
             placeholder="Image URL"
-            inputMode="url"
+            value={values.link}
             onChange={handleChange}
           />
         </label>
