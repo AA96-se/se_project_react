@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Header from "../Header/Header";
@@ -13,7 +13,7 @@ import "./App.css";
 import { getWeatherData } from "../../utils/weatherApi";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import { getItems } from "../../../api";
+import { addItem, getItems, deleteItem } from "../../../api";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
@@ -39,15 +39,29 @@ function App() {
     }
   }
 
-  function handleAddItemSubmit(inputValues) {
-    console.log(inputValues);
-    setClothingItems([inputValues, ...clothingItems]);
-  }
-
   // universal close handler
   function handleCloseModal() {
     setActiveModal("");
     setSelectedCard({});
+  }
+
+  function handleAddItemSubmit(inputValues) {
+    addItem(inputValues)
+      .then((data) => {
+        setClothingItems((prev) => [data, ...prev]);
+        handleCloseModal();
+      })
+      .catch(console.error);
+  }
+
+  // pass as a prop
+  function handleDeleteItem(item) {
+    deleteItem(item._id)
+      .then(() => {
+        setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
+        handleCloseModal();
+      })
+      .catch(console.error);
   }
 
   useEffect(() => {
@@ -61,7 +75,7 @@ function App() {
   useEffect(() => {
     getItems()
       .then((items) => {
-        setClothingItems(items);
+        setClothingItems([...items].reverse());
       })
       .catch(console.error);
   }, []);
@@ -106,6 +120,7 @@ function App() {
         card={selectedCard}
         isOpen={activeModal === "item-modal"}
         onClose={handleCloseModal}
+        handleDeleteItem={handleDeleteItem}
       />
 
       <AddItemModal

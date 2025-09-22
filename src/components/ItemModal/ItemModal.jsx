@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import "./ItemModal.css";
 
-function ItemModal({ card = {}, isOpen, onClose }) {
+function ItemModal({ card = {}, isOpen, onClose, handleDeleteItem }) {
   const { imageUrl = "", name = "", weather = "" } = card;
+
+  function handleDelete() {
+    handleDeleteItem(card);
+  }
 
   useEffect(() => {
     const onEsc = (e) => e.key === "Escape" && onClose?.();
@@ -31,6 +35,9 @@ function ItemModal({ card = {}, isOpen, onClose }) {
           <p className="modal__text modal__text_type_caption">
             Weather: {weather}
           </p>
+          <button onClick={handleDelete} className="modal__delete-btn">
+            Delete
+          </button>
         </div>
       </div>
     </div>

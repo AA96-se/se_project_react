@@ -10,7 +10,7 @@ function AddItemModal({ isOpen, onClose, handleAddItemSubmit }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleAddItemSubmit(values);
+    handleAddItemSubmit({ ...values, imageUrl: values.link });
   };
 
   // TODO - implement reset and delete
