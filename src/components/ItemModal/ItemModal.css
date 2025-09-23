@@ -48,6 +48,15 @@
   cursor: pointer;
 }
 
+.modal__close-btn_type_form {
+  background-image: transparent url(../../assets/blackX.svg) center/contain
+    no-repeat;
+  border: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
 .modal__footer {
   background-color: #fff;
   padding: 0 0 32px 32px;
