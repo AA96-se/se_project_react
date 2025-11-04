@@ -99,6 +99,10 @@
   right: 20px;
 }
 
+.modal__delete-button_hidden {
+  display: none;
+}
+
 /* Form Styles */
 
 .modal__container_type_form {

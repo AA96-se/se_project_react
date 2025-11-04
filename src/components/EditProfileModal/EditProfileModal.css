@@ -1,0 +1,24 @@
+.profile-edit {
+  display: grid;
+  gap: 12px;
+}
+
+.profile-edit__field {
+  display: grid;
+  gap: 6px;
+}
+
+.profile-edit__label {
+  font-size: 14px;
+}
+
+.profile-edit__input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.profile-edit__submit {
+  padding: 10px 14px;
+  border-radius: 10px;
+}

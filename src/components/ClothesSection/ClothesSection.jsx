@@ -1,29 +1,33 @@
-import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
+import "./ClothesSection.css";
 
 function ClothesSection({
   clothingItems,
-  handleOpenItemModal,
   handleOpenAddGarmentModal,
+  handleOpenItemModal,
+  onCardLike, // NEW passthrough
 }) {
   return (
-    <section className="clothes-section">
-      <div className="clothes-section__row">
-        <p className="clothes-section__text"> Your items </p>
+    <section className="clothes">
+      <div className="clothes__header">
+        <h2 className="clothes__title">Your items</h2>
         <button
-          className="clothes-section__btn"
+          className="clothes__add-btn"
           onClick={handleOpenAddGarmentModal}
         >
-          + Add new
+          + Add clothes
         </button>
       </div>
-      <ul className="clothes-section__card-list">
+
+      <ul className="clothes__list">
         {clothingItems.map((item) => (
-          <ItemCard
-            key={item._id}
-            data={item}
-            onCardClick={handleOpenItemModal}
-          />
+          <li key={item._id} className="clothes__list-item">
+            <ItemCard
+              data={item}
+              onCardClick={handleOpenItemModal}
+              onCardLike={onCardLike} // NEW
+            />
+          </li>
         ))}
       </ul>
     </section>

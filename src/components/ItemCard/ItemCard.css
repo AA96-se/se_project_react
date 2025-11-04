@@ -31,3 +31,19 @@
   max-height: 328px;
   max-width: 325px;
 }
+
+.card__like {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.card__like_active {
+  font-weight: 700;
+  transform: scale(1.05);
+}
+
+.card__like_hidden {
+  display: none;
+}

@@ -1,26 +1,25 @@
-import { useEffect } from "react";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ItemModal.css";
 
-function ItemModal({ card = {}, isOpen, onClose, handleDeleteItem }) {
-  const { imageUrl = "", name = "", weather = "" } = card;
+function ItemModal({ card, isOpen, onClose, handleDeleteItem }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = currentUser?._id && card?.owner === currentUser._id;
 
-  function handleDelete() {
-    handleDeleteItem(card);
-  }
+  const deleteBtnClass = `modal__delete-button ${
+    isOwn ? "" : "modal__delete-button_hidden"
+  }`;
 
-  useEffect(() => {
-    const onEsc = (e) => e.key === "Escape" && onClose?.();
-    if (isOpen) document.addEventListener("keydown", onEsc);
-    return () => document.removeEventListener("keydown", onEsc);
-  }, [isOpen, onClose]);
+  if (!isOpen) return null;
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) onClose();
+  };
 
   return (
     <div
-      className={`modal${isOpen ? " modal_is-opened" : ""}`}
-      onClick={onClose}
-      aria-hidden={!isOpen}
-      role="dialog"
-      aria-modal="true"
+      className={`modal ${isOpen ? "modal_is-opened" : ""}`}
+      onClick={handleOverlayClick}
     >
       <div className="modal__container" onClick={(e) => e.stopPropagation()}>
         <button
@@ -28,15 +27,18 @@ function ItemModal({ card = {}, isOpen, onClose, handleDeleteItem }) {
           type="button"
           aria-label="Close"
           onClick={onClose}
-        ></button>
-        <img src={imageUrl} alt={name} className="modal__image" />
+        />
+        <img src={card?.imageUrl} alt={card?.name} className="modal__image" />
         <div className="modal__footer">
-          <p className="modal__text modal__text_type_title">{name}</p>
-          <p className="modal__text modal__text_type_caption">
-            Weather: {weather}
-          </p>
-          <button onClick={handleDelete} className="modal__delete-btn">
-            Delete
+          <p className="modal__text">{card?.name}</p>
+
+          {/* Only owner sees this button */}
+          <button
+            className={deleteBtnClass}
+            type="button"
+            onClick={() => handleDeleteItem(card)}
+          >
+            Delete item
           </button>
         </div>
       </div>

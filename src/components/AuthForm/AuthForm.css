@@ -1,0 +1,24 @@
+.auth {
+  display: grid;
+  gap: 12px;
+}
+
+.auth__field {
+  display: grid;
+  gap: 6px;
+}
+
+.auth__label {
+  font-size: 14px;
+}
+
+.auth__input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.auth__submit {
+  padding: 10px 14px;
+  border-radius: 10px;
+}
