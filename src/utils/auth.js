@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = import.meta.env.PROD
+  ? "https://api.wtwr.jonward.com"
+  : "http://localhost:3001";
 
 const check = async (res) => {
   if (!res.ok) {

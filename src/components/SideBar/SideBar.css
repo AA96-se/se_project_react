@@ -22,6 +22,9 @@
 .sidebar__avatar {
   height: 56px;
   width: 56px;
+  border: 1px;
+  border-color: black;
+  border-radius: 50%;
 }
 
 .sidebar__logout-btn {
