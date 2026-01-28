@@ -34,4 +34,6 @@
   border-radius: 4px;
   background-color: #0000004d;
   cursor: pointer;
+  max-width: 128px;
+  max-height: 36px;
 }

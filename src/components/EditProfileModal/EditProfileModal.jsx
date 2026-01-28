@@ -47,6 +47,7 @@ export default function EditProfileModal({
             <input
               className="profile-edit__input"
               type="text"
+              placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -58,6 +59,7 @@ export default function EditProfileModal({
             <input
               className="profile-edit__input"
               type="url"
+              placeholder="Avatar URL"
               value={avatar}
               onChange={(e) => setAvatar(e.target.value)}
             />
