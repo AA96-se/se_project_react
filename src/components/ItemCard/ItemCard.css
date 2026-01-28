@@ -9,16 +9,16 @@
 }
 
 .card__title {
-  position: absolute;
-  top: 15px;
   margin: 0;
   font-family: "Cabinet Grotesk";
   font-weight: 700;
   font-size: 16px;
   opacity: 60%;
   background-color: #fff;
-  padding: 2px 12px 2px 12px;
+  padding: 2px 12px;
   border-radius: 4px;
+
+  pointer-events: auto;
 }
 
 .card__image {
@@ -33,17 +33,36 @@
 }
 
 .card__like {
+  width: 20px;
+  height: 18px;
   border: none;
-  background: transparent;
+  padding: 0;
+  background: transparent url("../../assets/like.svg") center / contain
+    no-repeat;
   cursor: pointer;
-  font-size: 18px;
+
+  pointer-events: auto;
 }
 
 .card__like_active {
-  font-weight: 700;
-  transform: scale(1.05);
+  background-image: url("../../assets/like-active.svg");
 }
 
 .card__like_hidden {
   display: none;
+}
+
+.card__header {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  z-index: 2;
+  pointer-events: none;
 }

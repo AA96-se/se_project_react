@@ -6,9 +6,9 @@ function ItemCard({ data, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
   const isLoggedIn = Boolean(currentUser?._id);
 
-  // likes should be array of user id strings
   const isLiked = useMemo(() => {
     if (!isLoggedIn) return false;
+
     return (
       Array.isArray(data.likes) &&
       data.likes.some((id) => id === currentUser._id)
@@ -34,23 +34,24 @@ function ItemCard({ data, onCardClick, onCardLike }) {
 
   return (
     <div className="card">
-      <h2 className="card__title">{data.name}</h2>
+      <div className="card__header">
+        <h2 className="card__title">{data.name}</h2>
+
+        <button
+          type="button"
+          className={likeBtnClass}
+          aria-pressed={isLiked}
+          aria-label={isLiked ? "Unlike item" : "Like item"}
+          onClick={handleLike}
+        />
+      </div>
+
       <img
         src={data.imageUrl}
         alt={data.name}
         className="card__image"
         onClick={handleOpenCard}
       />
-
-      {/* Like toggle (hidden for guests) */}
-      <button
-        type="button"
-        className={likeBtnClass}
-        aria-pressed={isLiked}
-        onClick={handleLike}
-      >
-        ♥
-      </button>
     </div>
   );
 }
