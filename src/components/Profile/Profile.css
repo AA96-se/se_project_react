@@ -15,7 +15,35 @@
   margin: 0 10px;
 }
 
-.clothes__add-btn {
+.profile-edit-label {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  font-style: bold;
+}
+
+.profile-edit__input {
+  display: block;
+  margin-bottom: 24px;
+  margin-top: 8px;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #111;
+  background: transparent;
+  outline: none;
+}
+
+.profile-edit__submit {
+  margin-top: 32px;
+  padding: 8px 16px 8px 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  background-color: #0000004d;
+  cursor: pointer;
+}
+
+.profile__edit .clothes__add-btn {
   font-family: "Cabinet Grotesk";
   font-weight: 700;
   font-size: 20px;
