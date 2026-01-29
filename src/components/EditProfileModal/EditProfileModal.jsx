@@ -39,7 +39,7 @@ export default function EditProfileModal({
           aria-label="Close"
           onClick={onClose}
         />
-        <h2 className="modal__text">Edit profile</h2>
+        <h2 className="modal__text">Change profile data</h2>
 
         <form className="profile-edit" onSubmit={handleSubmit}>
           <label className="profile-edit__field">

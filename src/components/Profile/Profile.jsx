@@ -10,7 +10,7 @@ function Profile({
   handleOpenItemModal,
   onCardLike,
   onEditProfile,
-  onSignOut, // passes to SideBar
+  onSignOut,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -21,14 +21,9 @@ function Profile({
 
   return (
     <main className="profile">
-      <SideBar onSignOut={onSignOut} />
-      <div className="profile__content">
-        <div className="profile__actions">
-          <button className="profile__edit-btn" onClick={onEditProfile}>
-            Edit profile
-          </button>
-        </div>
+      <SideBar onSignOut={onSignOut} onEditProfile={onEditProfile} />
 
+      <div className="profile__content">
         <ClothesSection
           clothingItems={myItems}
           handleOpenAddGarmentModal={handleOpenAddGarmentModal}

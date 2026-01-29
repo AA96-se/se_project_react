@@ -2,7 +2,7 @@ import { useContext } from "react";
 import "./SideBar.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function SideBar({ onSignOut }) {
+function SideBar({ onSignOut, onEditProfile }) {
   const currentUser = useContext(CurrentUserContext);
 
   const name = currentUser?.name ?? "";
@@ -35,9 +35,16 @@ function SideBar({ onSignOut }) {
       <div className="sidebar__actions">
         <button
           type="button"
+          className="sidebar__edit-btn"
+          onClick={onEditProfile}
+        >
+          Change profile data
+        </button>
+
+        <button
+          type="button"
           className="sidebar__logout-btn"
           onClick={onSignOut}
-          aria-label="Log Out"
         >
           Log Out
         </button>
