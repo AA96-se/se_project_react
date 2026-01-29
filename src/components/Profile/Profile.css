@@ -1,6 +1,7 @@
 .profile {
   display: flex;
   gap: 116px;
+  min-height: 90%;
 }
 
 .profile__edit-btn {
