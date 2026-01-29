@@ -38,3 +38,15 @@
   cursor: pointer;
   margin: 0 10px;
 }
+
+.sidebar__edit-btn {
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 0 10px;
+}
