@@ -9,6 +9,7 @@
   flex-direction: row-reverse;
   gap: 16px;
   margin-top: 27px;
+  margin-bottom: 24px;
   justify-content: left; /* might be a problem as we add to sidebar */
 }
 

@@ -38,6 +38,7 @@
   padding: 0;
   cursor: pointer;
   margin: 0 10px;
+  color: #00000099;
 }
 
 .clothes__title {
@@ -54,4 +55,13 @@
 .clothes__header {
   display: flex;
   gap: 20px;
+}
+
+.clothes__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
