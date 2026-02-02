@@ -226,34 +226,36 @@ function App() {
             onOpenRegister={() => setRegisterOpen(true)}
           />
 
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  weatherData={weatherData}
-                  clothingItems={clothingItems}
-                  handleOpenItemModal={handleOpenItemModal}
-                  onCardLike={handleCardLike}
-                />
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile
+          <div className="app__content">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weatherData={weatherData}
                     clothingItems={clothingItems}
-                    handleOpenAddGarmentModal={handleOpenAddGarmentModal}
                     handleOpenItemModal={handleOpenItemModal}
                     onCardLike={handleCardLike}
-                    onEditProfile={openEditProfile}
-                    onSignOut={handleSignOut} // sidebar "Log Out"
                   />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      clothingItems={clothingItems}
+                      handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+                      handleOpenItemModal={handleOpenItemModal}
+                      onCardLike={handleCardLike}
+                      onEditProfile={openEditProfile}
+                      onSignOut={handleSignOut}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </div>
         </CurrentTemperatureUnitContext.Provider>
       </CurrentUserContext.Provider>
 

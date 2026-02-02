@@ -1,5 +1,13 @@
 .app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   margin: 0 auto;
   max-width: 1360px;
   padding: 32px 40px 24px 40px;
+}
+
+.app__content {
+  flex-grow: 1;
 }
