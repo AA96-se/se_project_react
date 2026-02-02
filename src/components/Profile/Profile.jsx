@@ -16,7 +16,13 @@ function Profile({
 
   const myItems = useMemo(() => {
     if (!currentUser?._id) return [];
-    return clothingItems.filter((i) => i.owner === currentUser._id);
+
+    return clothingItems.filter((item) => {
+      const ownerId =
+        typeof item.owner === "string" ? item.owner : item.owner?._id;
+
+      return ownerId === currentUser._id;
+    });
   }, [clothingItems, currentUser?._id]);
 
   return (

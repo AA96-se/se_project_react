@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
 import avatarFallback from "../../assets/avatar.svg";
 import "./Header.css";
@@ -11,8 +11,10 @@ function Header({
   currentUser = null,
   onOpenLogin,
   onOpenRegister,
-  // onSignOut removed from props
 }) {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   const now = new Date();
   const dateStr = now.toLocaleDateString("default", {
     month: "long",
@@ -39,7 +41,7 @@ function Header({
       </div>
 
       <div className="header__side">
-        <ToggleSwitch />
+        {isHomePage && <ToggleSwitch />}
 
         {/* SHOW ONLY WHEN LOGGED IN */}
         {isLoggedIn && (
@@ -53,7 +55,6 @@ function Header({
 
         {!isLoggedIn ? (
           <div className="header__auth">
-            {/* Order: Sign Up first, then Log in */}
             <button
               className="header__btn header__btn_type_register"
               onClick={onOpenRegister}
@@ -86,8 +87,6 @@ function Header({
             )}
           </Link>
         )}
-
-        {/* Sign-out button removed from header */}
       </div>
     </header>
   );
