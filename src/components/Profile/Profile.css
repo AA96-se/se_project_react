@@ -55,6 +55,7 @@
 .clothes__header {
   display: flex;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .clothes__list {
