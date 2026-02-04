@@ -32,3 +32,8 @@ npm run build
 # 4) Preview the production build
 npm run preview
 ```
+
+## Project Pitch Video
+
+Check out [this video](https://drive.google.com/file/d/1R8eODb4k5xNIiaGrRUUwp-iHK-Av4ck5/view?usp=drive_link), where I describe my
+project and some challenges I faced while building it.
