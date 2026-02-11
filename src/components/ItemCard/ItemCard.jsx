@@ -6,12 +6,16 @@ function ItemCard({ data, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
   const isLoggedIn = Boolean(currentUser?._id);
 
+  // ✅ FIXED — tolerant like shape handling
   const isLiked = useMemo(() => {
     if (!isLoggedIn) return false;
 
     return (
       Array.isArray(data.likes) &&
-      data.likes.some((id) => id === currentUser._id)
+      data.likes.some((like) => {
+        const likeId = typeof like === "string" ? like : like?._id;
+        return likeId === currentUser._id;
+      })
     );
   }, [data.likes, currentUser?._id, isLoggedIn]);
 

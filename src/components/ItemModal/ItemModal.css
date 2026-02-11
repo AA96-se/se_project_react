@@ -36,43 +36,48 @@
 
 .modal__image {
   display: block;
-  max-height: 498px;
-  max-width: 498px;
+  width: 498px;
+  height: 498px;
+  object-fit: cover;
 }
 
 .modal__close-btn {
   position: absolute;
   top: 24px;
   right: 24px;
-  background: transparent url(../../assets/whiteX.svg) center/contain no-repeat;
+  background: transparent center/contain no-repeat;
   border: none;
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
+/* Preview modal close icon should be dark */
+.modal__close-btn_type_preview {
+  background-image: url(../../assets/blackX.svg);
+}
+
 .modal__close-btn_type_form {
-  background-image: transparent url(../../assets/blackX.svg) center/contain
-    no-repeat;
-  border: none;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+  background-image: url(../../assets/blackX.svg);
 }
 
 .modal__footer {
   background-color: #fff;
-  padding: 0 0 32px 32px;
+  padding: 20px 32px 32px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  position: relative;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal__footer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .modal__text {
   margin: 0;
-  margin-left: 32px;
   font-family: "Cabinet Grotesk", sans-serif;
   font-size: 20px;
   line-height: 24px;
@@ -80,30 +85,24 @@
 }
 
 .modal__text_type_title {
-  padding-bottom: 12px;
-  padding-top: 20px;
   margin: 0;
-  flex: 1 1 auto;
 }
 
 .modal__text_type_caption {
-  margin: 0;
-  flex: 0 0 100%;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
 }
 
-.modal__delete-btn {
+.modal__delete-button {
   border: none;
   background: none;
   color: #ff4d00;
   font-weight: 700;
   font-size: 20px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.modal__delete-button_hidden {
-  display: none;
+  line-height: 24px;
+  cursor: pointer;
+  padding: 0;
 }
 
 /* Form Styles */
@@ -160,4 +159,12 @@
 
 .modal__legend {
   margin-bottom: 12px;
+}
+
+.modal__container_type_preview {
+  width: 498px;
+  height: 610px; /* image (498) + footer space */
+  background: #fff;
+  display: flex;
+  flex-direction: column;
 }

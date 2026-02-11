@@ -37,11 +37,11 @@
 }
 
 .header__avatar {
-  max-width: 40px;
-  max-height: 40px;
-  border: 1px;
-  border-color: black;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000;
   border-radius: 50%;
+  object-fit: cover;
   margin-top: 10px;
 }
 

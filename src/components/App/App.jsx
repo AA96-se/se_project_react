@@ -41,7 +41,7 @@ function App() {
 
   // ui state
   const [currentTempUnit, setCurrentTempUnit] = useState("F");
-  const [activeModal, setActiveModal] = useState(""); // "item-modal" | "add-garment-modal" | ""
+  const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
 
   // auth state
@@ -52,6 +52,17 @@ function App() {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isEditProfileOpen, setEditProfileOpen] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
+
+  // ✅ NEW — modal switch handlers
+  function openRegisterFromLogin() {
+    setLoginOpen(false);
+    setRegisterOpen(true);
+  }
+
+  function openLoginFromRegister() {
+    setRegisterOpen(false);
+    setLoginOpen(true);
+  }
 
   // temperature toggle
   function handleTempUnitChange() {
@@ -76,7 +87,7 @@ function App() {
     setEditProfileOpen(false);
   }
 
-  // items (protected)
+  // items
   function handleAddItemSubmit(inputValues) {
     addItem(inputValues, token)
       .then((created) => {
@@ -95,14 +106,16 @@ function App() {
       .catch(console.error);
   }
 
-  // likes (stretch)
+  // likes
   function handleCardLike({ id, isLiked }) {
     const t = token || localStorage.getItem("jwt");
     if (!t) {
       setLoginOpen(true);
       return;
     }
+
     const req = isLiked ? unlikeItem(id, t) : likeItem(id, t);
+
     req
       .then((updatedCard) => {
         setClothingItems((cards) =>
@@ -112,7 +125,7 @@ function App() {
       .catch(console.error);
   }
 
-  // profile edit (stretch)
+  // profile edit
   function openEditProfile() {
     if (!isLoggedIn) {
       setLoginOpen(true);
@@ -140,6 +153,7 @@ function App() {
     try {
       await signup({ name, avatar, email, password });
       const res = await signin({ email, password });
+
       if (res?.token) {
         localStorage.setItem("jwt", res.token);
         setToken(res.token);
@@ -157,6 +171,7 @@ function App() {
     setSubmitting(true);
     try {
       const res = await signin({ email, password });
+
       if (res?.token) {
         localStorage.setItem("jwt", res.token);
         setToken(res.token);
@@ -170,17 +185,15 @@ function App() {
   }
 
   function handleSignOut() {
-    try {
-      localStorage.removeItem("jwt");
-    } catch (_) {}
+    localStorage.removeItem("jwt");
     setToken("");
     setIsLoggedIn(false);
     setCurrentUser(null);
     setActiveModal("");
-    navigate("/"); // redirect to home immediately
+    navigate("/");
   }
 
-  // effects: weather + items (public GET /items)
+  // effects
   useEffect(() => {
     getWeatherData().then(setWeatherData).catch(console.error);
   }, []);
@@ -191,13 +204,13 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // token bootstrap/validation
   useEffect(() => {
     if (!token) {
       setIsLoggedIn(false);
       setCurrentUser(null);
       return;
     }
+
     getMe(token)
       .then((user) => {
         setCurrentUser(user);
@@ -239,6 +252,7 @@ function App() {
                   />
                 }
               />
+
               <Route
                 path="/profile"
                 element={
@@ -261,34 +275,36 @@ function App() {
 
       <Footer />
 
-      {/* Item view & add item */}
       <ItemModal
         card={selectedCard}
         isOpen={activeModal === "item-modal"}
         onClose={handleCloseModal}
         handleDeleteItem={handleDeleteItem}
       />
+
       <AddItemModal
         isOpen={activeModal === "add-garment-modal"}
         onClose={handleCloseModal}
         handleAddItemSubmit={handleAddItemSubmit}
       />
 
-      {/* Auth */}
+      {/* ✅ updated props passed down */}
       <RegisterModal
         isOpen={isRegisterOpen}
         onClose={() => setRegisterOpen(false)}
         onRegister={handleRegister}
         isSubmitting={isSubmitting}
+        onOpenLogin={openLoginFromRegister}
       />
+
       <LoginModal
         isOpen={isLoginOpen}
         onClose={() => setLoginOpen(false)}
         onLogin={handleLogin}
         isSubmitting={isSubmitting}
+        onOpenRegister={openRegisterFromLogin}
       />
 
-      {/* Edit profile (stretch) */}
       <EditProfileModal
         isOpen={isEditProfileOpen}
         onClose={() => setEditProfileOpen(false)}

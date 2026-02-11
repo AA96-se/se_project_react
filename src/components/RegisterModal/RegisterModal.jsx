@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../AuthForm/AuthForm.css";
 
 export default function RegisterModal({
@@ -6,16 +6,29 @@ export default function RegisterModal({
   onClose,
   onRegister,
   isSubmitting,
+  onOpenLogin,
 }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    if (!isOpen) return;
+    setName("");
+    setAvatar("");
+    setEmail("");
+    setPassword("");
+  }, [isOpen]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegister({ name, avatar, email, password });
   };
+
+  function handleSwitch() {
+    onOpenLogin?.();
+  }
 
   return (
     <div
@@ -27,12 +40,12 @@ export default function RegisterModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="modal__close-btn"
+          className="modal__close-btn modal__close-btn_type_form"
           type="button"
           aria-label="Close"
           onClick={onClose}
         />
-        <h2 className="modal__text">Sign Up</h2>
+        <h2 className="modal__title">Sign Up</h2>
 
         <form className="auth" onSubmit={handleSubmit}>
           <label className="auth__field">
@@ -79,13 +92,24 @@ export default function RegisterModal({
             />
           </label>
 
-          <button
-            className="auth__submit"
-            type="submit"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Signing up..." : "Sign Up"}
-          </button>
+          <div className="auth__actions">
+            <button
+              className="auth__submit"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Signing up..." : "Sign Up"}
+            </button>
+
+            <button
+              className="auth__switch"
+              type="button"
+              onClick={handleSwitch}
+              disabled={isSubmitting}
+            >
+              or Log in
+            </button>
+          </div>
         </form>
       </div>
     </div>
