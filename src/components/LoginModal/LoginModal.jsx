@@ -50,7 +50,7 @@ export default function LoginModal({
           aria-label="Close"
           onClick={onClose}
         />
-        <h2 className="modal__text">Log in</h2>
+        <h2 className="modal__title">Log in</h2>
 
         <form className="auth" onSubmit={handleSubmit} noValidate>
           <label className="auth__field">
@@ -58,6 +58,7 @@ export default function LoginModal({
             <input
               className="auth__input"
               type="email"
+              placeholder="Email"
               value={email}
               onChange={handleEmailChange}
               required
@@ -69,6 +70,7 @@ export default function LoginModal({
             <input
               className="auth__input"
               type="password"
+              placeholder="Password"
               value={password}
               onChange={handlePasswordChange}
               required
