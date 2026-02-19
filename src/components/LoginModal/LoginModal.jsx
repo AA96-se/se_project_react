@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../AuthForm/AuthForm.css";
 
 export default function LoginModal({
@@ -6,25 +6,34 @@ export default function LoginModal({
   onClose,
   onLogin,
   isSubmitting,
-  onOpenRegister,
+  authError = "",
+  onClearError,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Optional: reset fields each time modal opens
   useEffect(() => {
-    if (!isOpen) return;
-    setEmail("");
-    setPassword("");
-  }, [isOpen]);
+    if (isOpen) {
+      setPassword("");
+      onClearError?.();
+    }
+  }, [isOpen, onClearError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onLogin({ email, password });
   };
 
-  function handleSwitch() {
-    onOpenRegister?.();
-  }
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (authError) onClearError?.();
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (authError) onClearError?.();
+  };
 
   return (
     <div
@@ -36,21 +45,21 @@ export default function LoginModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="modal__close-btn modal__close-btn_type_form"
+          className="modal__close-btn"
           type="button"
           aria-label="Close"
           onClick={onClose}
         />
-        <h2 className="modal__title">Log in</h2>
+        <h2 className="modal__text">Log in</h2>
 
-        <form className="auth" onSubmit={handleSubmit}>
+        <form className="auth" onSubmit={handleSubmit} noValidate>
           <label className="auth__field">
             <span className="auth__label">Email</span>
             <input
               className="auth__input"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               required
             />
           </label>
@@ -61,29 +70,20 @@ export default function LoginModal({
               className="auth__input"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
           </label>
 
-          <div className="auth__actions">
-            <button
-              className="auth__submit"
-              type="submit"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Logging in..." : "Log in"}
-            </button>
+          {authError && <p className="auth__error">{authError}</p>}
 
-            <button
-              className="auth__switch"
-              type="button"
-              onClick={handleSwitch}
-              disabled={isSubmitting}
-            >
-              or Sign Up
-            </button>
-          </div>
+          <button
+            className="auth__submit"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Logging in..." : "Log in"}
+          </button>
         </form>
       </div>
     </div>

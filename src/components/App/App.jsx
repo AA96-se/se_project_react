@@ -41,7 +41,7 @@ function App() {
 
   // ui state
   const [currentTempUnit, setCurrentTempUnit] = useState("F");
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState(""); // "item-modal" | "add-garment-modal" | ""
   const [selectedCard, setSelectedCard] = useState({});
 
   // auth state
@@ -53,16 +53,8 @@ function App() {
   const [isEditProfileOpen, setEditProfileOpen] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
 
-  // ✅ NEW — modal switch handlers
-  function openRegisterFromLogin() {
-    setLoginOpen(false);
-    setRegisterOpen(true);
-  }
-
-  function openLoginFromRegister() {
-    setRegisterOpen(false);
-    setLoginOpen(true);
-  }
+  // ✅ NEW: auth error message shown in modals
+  const [authError, setAuthError] = useState("");
 
   // temperature toggle
   function handleTempUnitChange() {
@@ -85,9 +77,10 @@ function App() {
     setRegisterOpen(false);
     setLoginOpen(false);
     setEditProfileOpen(false);
+    setAuthError(""); // ✅ clear when closing anything
   }
 
-  // items
+  // items (protected)
   function handleAddItemSubmit(inputValues) {
     addItem(inputValues, token)
       .then((created) => {
@@ -106,16 +99,15 @@ function App() {
       .catch(console.error);
   }
 
-  // likes
+  // likes (stretch)
   function handleCardLike({ id, isLiked }) {
     const t = token || localStorage.getItem("jwt");
     if (!t) {
+      setAuthError("");
       setLoginOpen(true);
       return;
     }
-
     const req = isLiked ? unlikeItem(id, t) : likeItem(id, t);
-
     req
       .then((updatedCard) => {
         setClothingItems((cards) =>
@@ -125,9 +117,10 @@ function App() {
       .catch(console.error);
   }
 
-  // profile edit
+  // profile edit (stretch)
   function openEditProfile() {
     if (!isLoggedIn) {
+      setAuthError("");
       setLoginOpen(true);
       return;
     }
@@ -153,15 +146,16 @@ function App() {
     try {
       await signup({ name, avatar, email, password });
       const res = await signin({ email, password });
-
       if (res?.token) {
         localStorage.setItem("jwt", res.token);
         setToken(res.token);
         setRegisterOpen(false);
         setLoginOpen(false);
+        setAuthError("");
       }
     } catch (e) {
       console.error(e);
+      // optional: set a register error message here later if you want
     } finally {
       setSubmitting(false);
     }
@@ -171,29 +165,34 @@ function App() {
     setSubmitting(true);
     try {
       const res = await signin({ email, password });
-
       if (res?.token) {
         localStorage.setItem("jwt", res.token);
         setToken(res.token);
         setLoginOpen(false);
+        setAuthError("");
       }
     } catch (e) {
       console.error(e);
+      // ✅ this matches your screenshot requirement
+      setAuthError("Email or password incorrect");
     } finally {
       setSubmitting(false);
     }
   }
 
   function handleSignOut() {
-    localStorage.removeItem("jwt");
+    try {
+      localStorage.removeItem("jwt");
+    } catch (_) {}
     setToken("");
     setIsLoggedIn(false);
     setCurrentUser(null);
     setActiveModal("");
+    setAuthError("");
     navigate("/");
   }
 
-  // effects
+  // effects: weather + items (public GET /items)
   useEffect(() => {
     getWeatherData().then(setWeatherData).catch(console.error);
   }, []);
@@ -204,13 +203,13 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // token bootstrap/validation
   useEffect(() => {
     if (!token) {
       setIsLoggedIn(false);
       setCurrentUser(null);
       return;
     }
-
     getMe(token)
       .then((user) => {
         setCurrentUser(user);
@@ -235,8 +234,14 @@ function App() {
             handleOpenAddGarmentModal={handleOpenAddGarmentModal}
             isLoggedIn={isLoggedIn}
             currentUser={currentUser}
-            onOpenLogin={() => setLoginOpen(true)}
-            onOpenRegister={() => setRegisterOpen(true)}
+            onOpenLogin={() => {
+              setAuthError("");
+              setLoginOpen(true);
+            }}
+            onOpenRegister={() => {
+              setAuthError("");
+              setRegisterOpen(true);
+            }}
           />
 
           <div className="app__content">
@@ -252,7 +257,6 @@ function App() {
                   />
                 }
               />
-
               <Route
                 path="/profile"
                 element={
@@ -281,28 +285,26 @@ function App() {
         onClose={handleCloseModal}
         handleDeleteItem={handleDeleteItem}
       />
-
       <AddItemModal
         isOpen={activeModal === "add-garment-modal"}
         onClose={handleCloseModal}
         handleAddItemSubmit={handleAddItemSubmit}
       />
 
-      {/* ✅ updated props passed down */}
       <RegisterModal
         isOpen={isRegisterOpen}
-        onClose={() => setRegisterOpen(false)}
+        onClose={handleCloseModal}
         onRegister={handleRegister}
         isSubmitting={isSubmitting}
-        onOpenLogin={openLoginFromRegister}
       />
 
       <LoginModal
         isOpen={isLoginOpen}
-        onClose={() => setLoginOpen(false)}
+        onClose={handleCloseModal}
         onLogin={handleLogin}
         isSubmitting={isSubmitting}
-        onOpenRegister={openRegisterFromLogin}
+        authError={authError}
+        onClearError={() => setAuthError("")}
       />
 
       <EditProfileModal

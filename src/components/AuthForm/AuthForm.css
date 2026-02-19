@@ -27,7 +27,6 @@
 }
 
 .auth__submit {
-  margin-top: 32px;
   padding: 8px 16px 8px 16px;
   color: #fff;
   border: none;
@@ -54,5 +53,11 @@
   font-size: 16px;
   line-height: 20px;
   opacity: 0.6;
-  margin-top: 32px;
+}
+
+.auth__error {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ff4d00;
 }
